@@ -127,19 +127,22 @@ if __name__=='__main__':
 
     num_train_sample_users = min(data.shape[0],1000)
     train_sample_users = random.sample(xrange(data.shape[0]),num_train_sample_users)
-    print 'train mrr = {0:.4f}'.format(compute_mrr(data,U,V,train_sample_users))
+    print 'iteration {0}:'.format(0)
+    print 'objective = {0:.16f}'.format(objective(data,U,V,opts.lbda))
+    print 'train mrr = {0:.16f}'.format(compute_mrr(data,U,V,train_sample_users))
     if opts.test:
         num_test_sample_users = min(testdata.shape[0],1000)
         test_sample_users = random.sample(xrange(testdata.shape[0]),num_test_sample_users)
-        print 'test mrr  = {0:.4f}'.format(compute_mrr(testdata,U,V,test_sample_users))
+        print 'test mrr  = {0:.16f}'.format(compute_mrr(testdata,U,V,test_sample_users))
 
     for iter in xrange(opts.max_iters):
         update(data,U,V,opts.lbda,opts.gamma)
         print 'iteration {0}:'.format(iter+1)
-        print 'objective = {0:.4f}'.format(objective(data,U,V,opts.lbda))
-        print 'train mrr = {0:.4f}'.format(compute_mrr(data,U,V,train_sample_users))
+        print 'objective = {0:.16f}'.format(objective(data,U,V,opts.lbda))
+        print 'train mrr = {0:.16f}'.format(compute_mrr(data,U,V,train_sample_users))
         if opts.test:
-            print 'test mrr  = {0:.4f}'.format(compute_mrr(testdata,U,V,test_sample_users))
-
+            print 'test mrr  = {0:.16f}'.format(compute_mrr(testdata,U,V,test_sample_users))
+"""
     print 'U',U
     print 'V',V
+"""
